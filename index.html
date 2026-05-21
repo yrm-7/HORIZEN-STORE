@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>متجر سيرفر HORIZEN | FiveM Store</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap');
+
+        :root {
+            --bg-color: #0d0d0d;
+            --secondary-bg: #1a1a1a;
+            --accent-color: #ff6600; /* البرتقالي الأساسي */
+            --accent-hover: #e65c00;
+            --text-color: #aaaaaa;
+            --white: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Tajawal', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            overflow-x: hidden;
+        }
+
+        /* الهيدر */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 8%;
+            background-color: rgba(26, 26, 26, 0.9);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 2px solid rgba(255, 102, 0, 0.3);
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 900;
+            color: var(--white);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .logo span {
+            color: var(--accent-color);
+            text-shadow: 0 0 10px var(--accent-color);
+        }
+
+        nav a {
+            color: var(--white);
+            text-decoration: none;
+            margin-right: 20px;
+            font-weight: 700;
+            transition: 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--accent-color);
+        }
+
+        /* البانر الرئيسي */
+        .hero {
+            height: 70vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: linear-gradient(rgba(13, 13, 13, 0.8), rgba(13, 13, 13, 0.95)), 
+                        url('https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=2070') no-repeat center center/cover;
+            padding: 0 20px;
+            margin-top: 80px;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            color: var(--white);
+            margin-bottom: 15px;
+            font-weight: 900;
+        }
+
+        .hero h1 span {
+            color: var(--accent-color);
+            text-shadow: 0 0 15px rgba(255, 102, 0, 0.5);
+        }
+
+        .hero p {
+            font-size: 18px;
+            max-width: 600px;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 35px;
+            background: var(--accent-color);
+            color: var(--white);
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 5px;
+            box-shadow: 0 4px 15px rgba(255, 102, 0, 0.3);
+            transition: 0.3s;
+        }
+
+        .btn:hover {
+            background: var(--accent-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 102, 0, 0.5);
+        }
+
+        .btn-free {
+            background: #28a745;
+            box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3);
+        }
+        .btn-free:hover {
+            background: #218838;
+            box-shadow: 0 6px 20px rgba(40, 167, 69, 0.5);
+        }
+
+        /* الأقسام */
+        .shop-section {
+            padding: 60px 8%;
+            text-align: center;
+        }
+
+        .shop-section h2 {
+            font-size: 32px;
+            color: var(--white);
+            margin-bottom: 40px;
+        }
+
+        .shop-section h2 span {
+            color: var(--accent-color);
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        .card {
+            background-color: var(--secondary-bg);
+            border: 1px solid rgba(255, 102, 0, 0.1);
+            border-radius: 8px;
+            padding: 30px;
+            transition: 0.3s;
+            position: relative;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-color);
+            box-shadow: 0 5px 15px rgba(255, 102, 0, 0.1);
+        }
+
+        .card h3 {
+            font-size: 22px;
+            color: var(--white);
+            margin-bottom: 15px;
+        }
+
+        .price {
+            font-size: 26px;
+            color: var(--accent-color);
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .price-free {
+            color: #28a745;
+        }
+
+        .features-list {
+            list-style: none;
+            margin-bottom: 25px;
+            text-align: right;
+        }
+
+        .features-list li {
+            margin-bottom: 10px;
+            font-size: 15px;
+        }
+
+        .features-list li::before {
+            content: '🔸 ';
+        }
+
+        /* كرت السيارات قريباً */
+        .soon-card {
+            background: linear-gradient(rgba(26, 26, 26, 0.9), rgba(26, 26, 26, 0.9)), url('https://images.unsplash.com/photo-1617469767053-d3b508a0d825?q=80&w=500') no-repeat center center/cover;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 250px;
+            border: 2px dashed var(--accent-color);
+        }
+
+        .soon-title {
+            font-size: 36px;
+            font-weight: 900;
+            color: var(--accent-color);
+            letter-spacing: 3px;
+            text-shadow: 0 0 10px rgba(255, 102, 0, 0.5);
+        }
+
+        footer {
+            background-color: #050505;
+            padding: 30px;
+            text-align: center;
+            border-top: 1px solid #1a1a1a;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">HORI<span>ZEN</span></div>
+        <nav>
+            <a href="#gangs">العصابات</a>
+            <a href="#stores">المتاجر</a>
+            <a href="#workshops">الورشات</a>
+            <a href="#cars">السيارات</a>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <h1>متجر سيرفر <span>HORIZEN</span> الرسمي</h1>
+        <p>طور تجربتك داخل السيرفر واحصل على أفضل الميزات والمقرات الحصرية. اختر فئتك المفضلة الآن!</p>
+        <a href="#gangs" class="btn">تصفح المتجر</a>
+    </section>
+
+    <!-- قسم العصابات -->
+    <section class="shop-section" id="gangs">
+        <h2>قسم <span>العصابات</span></h2>
+        <div class="grid">
+            <div class="card" style="border-color: #28a745;">
+                <h3>فتح عصابة رسمية</h3>
+                <div class="price price-free">مجاني (FREE)</div>
+                <ul class="features-list">
+                    <li>اعتماد العصابة في السيرفر والدسكورد</li>
+                    <li>الحصول على رتبة رئيس عصابة</li>
+                    <li>إمكانية تقديم طلب مقر أو سيارات خاصة</li>
+                </ul>
+                <a href="https://discord.gg/YOUR_DISCORD_LINK" target="_blank" class="btn btn-free">افتح عصابة الآن</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- قسم المتاجر -->
+    <section class="shop-section" id="stores" style="background-color: var(--secondary-bg);">
+        <h2>قسم <span>شراء المتاجر</span></h2>
+        <div class="grid">
+            <div class="card">
+                <h3>متجر برقر شوت (Burger Shot)</h3>
+                <div class="price">15$</div>
+                <ul class="features-list">
+                    <li>امتلاك المتجر بالكامل وإدارته</li>
+                    <li>التحكم في الأسعار وقائمة الطعام</li>
+                    <li>خزنة خاصة بالمتجر لحفظ الأرباح</li>
+                </ul>
+                <a href="#" class="btn">شراء الآن</a>
+            </div>
+            <div class="card">
+                <h3>متجر سنر بنز (Sinner Street)</h3>
+                <div class="price">15$</div>
+                <ul class="features-list">
+                    <li>امتلاك موقع سنر بنز المميز</li>
+                    <li>صناعة وبيع المأكولات والمشروبات للاعبين</li>
+                    <li>توظيف لاعبين آخرين للعمل لديك</li>
+                </ul>
+                <a href="#" class="btn">شراء الآن</a>
+            </div>
+            <div class="card">
+                <h3>مطعم اتوم (Atom)</h3>
+                <div class="price">15$</div>
+                <ul class="features-list">
+                    <li>الاستحواذ الكامل على مطعم اتوم</li>
+                    <li>دخل يومي ممتاز من مبيعات اللاعبين</li>
+                    <li>نظام فواتير متطور خاص بالمطعم</li>
+                </ul>
+                <a href="#" class="btn">شراء الآن</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- قسم الورشات -->
+    <section class="shop-section" id="workshops">
+        <h2>قسم <span>الورشات</span></h2>
+        <div class="grid">
+            <div class="card" style="max-width: 500px; margin: 0 auto;">
+                <h3>جميع الورشات بالسيرفر</h3>
+                <div class="price">25$ <span style="font-size: 16px; color: var(--text-color);">/ للورشة</span></div>
+                <ul class="features-list">
+                    <li>امتلاك أي ورشة تعديل وتصليح تختارها</li>
+                    <li>تعديل سيارات اللاعبين وحصاد الأرباح كاملاً</li>
+                    <li>نظام ميكانيكي متكامل (تغيير محركات، بودي، صبغ)</li>
+                    <li>إمكانية طلب قطع غيار وتخزينها بالورشة</li>
+                </ul>
+                <a href="#" class="btn">شراء الورشة الآن</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- قسم السيارات -->
+    <section class="shop-section" id="cars" style="background-color: var(--secondary-bg);">
+        <h2>قسم <span>السيارات</span></h2>
+        <div class="card soon-card">
+            <div class="soon-title">SOON</div>
+            <p style="color: var(--white); margin-top: 10px; font-weight: bold;">انتظروا أقوى السيارات المخصصة والحصرية قريباً جداً!</p>
+        </div>
+    </section>
+
+    <footer>
+        <p>جميع الحقوق محفوظة © 2026 لسيرفر <span>HORIZEN</span>.</p>
+    </footer>
+
+</body>
+</html>
